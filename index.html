@@ -9,9 +9,9 @@
 <body>
 <div ng-controller="AppCtrl">
   String:<input type='text' ng-model="movingStr" />
-  Step-speed:<input type='text' ng-model="stepSpeed" />
+  Step-speed(ms):<input type='text' ng-model="stepSpeed" />
   <canvas id='grid'>Your browser doesn't support canvas :(</canvas>
-  {{draw(0)}}
+  {{draw(startIndex)}}
 </div>
 </body>
 </html>

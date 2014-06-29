@@ -12,8 +12,9 @@ function AppCtrl($scope) {
   };
 
   //let's use angular bindings to make the string to move dynamic, default to O
-  $scope.movingStr = "O";
-  $scope.stepSpeed = 500;
+  $scope.movingStr = localStorage.getItem('movingStr') || "O";
+  $scope.stepSpeed = parseInt(localStorage.getItem('stepSpeed')) || 1000;
+  $scope.startIndex = parseInt(localStorage.getItem('startIndex')) || 0;
 
   //padding so the O doesn't get displayed right on the edge of screen
   var pad = 50;
@@ -38,6 +39,8 @@ function AppCtrl($scope) {
   //how many steps have been taken
   var steps = 0;
 
+  var growFlag = false;
+
   function move(index) {
 
     clearAllTimeouts();
@@ -50,10 +53,17 @@ function AppCtrl($scope) {
     var point = defPath[index % defPath.length];
     ctx.fillText($scope.movingStr, point.x, point.y);
     steps++;
-    if ((steps - 1) % defPath.length === 0) {
+    //if ((steps - 1) % defPath.length === 0) {
+    console.log('growflag: ' + growFlag);
+    console.log('point: ' + JSON.stringify(point));
+    if (growFlag && point.equals(defPath[defPath.length - 1])) {
       //grow:  O --> 00
       $scope.movingStr += $scope.movingStr[$scope.movingStr.length - 1];
     }
+    growFlag = true;
+    localStorage.setItem("startIndex", index);
+    localStorage.setItem("stepSpeed", $scope.stepSpeed);
+    localStorage.setItem("movingStr", $scope.movingStr);
     setTimeout(move, parseInt($scope.stepSpeed), index + 1); //TODO: timeout should be user definable
   }
 
@@ -61,6 +71,9 @@ function AppCtrl($scope) {
   function Point(x, y) {
     this.x = x;
     this.y = y;
+    this.equals = function(other) {
+      return this.x === other.x && this.y === other.y;
+    };
   }
 
   function clearAllTimeouts() {
