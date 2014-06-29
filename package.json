@@ -1,0 +1,9 @@
+{
+  "name": "movingOs",
+  "description": "coding challenge by John Buco",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x"
+  }
+}
