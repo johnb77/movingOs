@@ -5,6 +5,9 @@ function AppCtrl($scope) {
     console.log('hello, world 222');
   };
 
+  //let's use angular bindings to make the string to move dynamic, default to O
+  $scope.movingStr = "O";
+
   //padding so the O doesn't get displayed right on the edge of screen
   var pad = 10;
 
@@ -30,6 +33,7 @@ function AppCtrl($scope) {
     //ctx.fillText("O", 230, 230); 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var point = defPath[pathIndex % 5];
+    ctx.fillText($scope.movingStr, point.x, point.y);
 
   };
 
