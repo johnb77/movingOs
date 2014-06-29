@@ -35,6 +35,9 @@ function AppCtrl($scope) {
   //current Point in path
   var pathIndex = 0;
 
+  //how many steps have been taken
+  var steps = 0;
+
   function move(index) {
 
     clearAllTimeouts();
@@ -46,6 +49,11 @@ function AppCtrl($scope) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var point = defPath[index % defPath.length];
     ctx.fillText($scope.movingStr, point.x, point.y);
+    steps++;
+    if ((steps - 1) % defPath.length === 0) {
+      //grow:  O --> 00
+      $scope.movingStr += $scope.movingStr[$scope.movingStr.length - 1];
+    }
     setTimeout(move, parseInt($scope.stepSpeed), index + 1); //TODO: timeout should be user definable
   }
 
