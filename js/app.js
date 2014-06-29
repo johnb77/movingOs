@@ -13,6 +13,7 @@ function AppCtrl($scope) {
 
   //let's use angular bindings to make the string to move dynamic, default to O
   $scope.movingStr = "O";
+  $scope.stepSpeed = 500;
 
   //padding so the O doesn't get displayed right on the edge of screen
   var pad = 50;
@@ -38,13 +39,14 @@ function AppCtrl($scope) {
 
     clearAllTimeouts();
     var ctx = canvas.getContext('2d');
+    ctx.font = '20pt Calibri';
 
     //ctx.fillText("O", 230, 230); 
     //console.log('in move:' + new Date());
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var point = defPath[index % 5];
+    var point = defPath[index % defPath.length];
     ctx.fillText($scope.movingStr, point.x, point.y);
-    setTimeout(move, 1000, index + 1); //TODO: timeout should be user definable
+    setTimeout(move, parseInt($scope.stepSpeed), index + 1); //TODO: timeout should be user definable
   }
 
   //constructor for Point object
