@@ -12,6 +12,9 @@ app.get('/', function(req, res){
 app.get('/js/app.js', function(req, res){
     res.sendfile('js/app.js');
 });
+app.get('/favicon.ico', function(req, res){
+    res.sendfile('favicon.ico');
+});
 
 var server = app.listen(3000, function() {
       console.log('Listening on port %d', server.address().port);
