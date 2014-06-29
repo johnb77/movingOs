@@ -1,3 +1,5 @@
+'use strict';
+
 function AppCtrl($scope) {
   console.log('in AppCtrl');
   $scope.test = 'hello, world';
@@ -5,17 +7,20 @@ function AppCtrl($scope) {
     console.log('hello, world 222');
   };
 
+  $scope.draw = function(i) {
+    move(i);
+  };
+
   //let's use angular bindings to make the string to move dynamic, default to O
   $scope.movingStr = "O";
 
   //padding so the O doesn't get displayed right on the edge of screen
-  var pad = 10;
+  var pad = 50;
 
   //canvas setup
   var canvas = document.getElementById('grid');
-  canvas.width = 500;
-  canvas.height = 500; 
-  var ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight; 
 
   //default path: left-middle, top-middle, right-middle, bottom-middle, center
   var defPath = [
@@ -29,17 +34,29 @@ function AppCtrl($scope) {
   //current Point in path
   var pathIndex = 0;
 
-  $scope.draw = function() {
-    //ctx.fillText("O", 230, 230); 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var point = defPath[pathIndex % 5];
-    ctx.fillText($scope.movingStr, point.x, point.y);
+  function move(index) {
 
-  };
+    clearAllTimeouts();
+    var ctx = canvas.getContext('2d');
+
+    //ctx.fillText("O", 230, 230); 
+    //console.log('in move:' + new Date());
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var point = defPath[index % 5];
+    ctx.fillText($scope.movingStr, point.x, point.y);
+    setTimeout(move, 1000, index + 1); //TODO: timeout should be user definable
+  }
 
   //constructor for Point object
   function Point(x, y) {
     this.x = x;
     this.y = y;
+  }
+
+  function clearAllTimeouts() {
+    var id = window.setTimeout(function() {}, 0);
+    while (id--) {
+      window.clearTimeout(id); // will do nothing if no timeout with id is present
+    }
   }
 }
