@@ -1,6 +1,6 @@
 {
   "name": "movingOs",
-  "description": "coding challenge by John Buco",
+  "description": “moving O coding challenge",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
