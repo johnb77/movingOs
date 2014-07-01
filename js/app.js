@@ -23,14 +23,12 @@ function AppCtrl($scope) {
   var tau = 2 * Math.PI;
   var clockRadius = Math.min(canvas.width, canvas.height) / 2.0;
 
-  //default path: left-middle, top-middle, right-middle, bottom-middle, center
-  var defPath = [
-    new Point(0 + pad, canvas.height / 2),
-    new Point(canvas.width / 2, 0 + pad),
-    new Point(canvas.width - pad, canvas.height / 2),
-    new Point(canvas.width / 2, canvas.height - pad),
-    new Point(canvas.width / 2, canvas.height / 2) 
-  ];
+  function getClockPoint(hour) {
+    var radians = tau * (hour / 12);
+    var hourX = centerX + Math.cos(radians - (tau / 4)) * clockRadius;
+    var hourY = centerY + Math.sin(radians - (tau / 4)) * clockRadius;
+    return new Point(hourX, hourY);
+  }
 
   var growFlag = false;
 
