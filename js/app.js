@@ -30,6 +30,22 @@ function AppCtrl($scope) {
     return new Point(hourX, hourY);
   }
 
+  // analog clock path 
+  var defPath = [
+    getClockPoint(12),
+    getClockPoint(1),
+    getClockPoint(2),
+    getClockPoint(3),
+    getClockPoint(4),
+    getClockPoint(5),
+    getClockPoint(6),
+    getClockPoint(7),
+    getClockPoint(8),
+    getClockPoint(9),
+    getClockPoint(10),
+    getClockPoint(11)
+  ];
+
   var growFlag = false;
 
   function move(index) {
