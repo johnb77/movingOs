@@ -18,6 +18,11 @@ function AppCtrl($scope) {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight; 
 
+  var centerX = canvas.width / 2;
+  var centerY = canvas.height / 2;
+  var tau = 2 * Math.PI;
+  var clockRadius = Math.min(canvas.width, canvas.height) / 2.0;
+
   //default path: left-middle, top-middle, right-middle, bottom-middle, center
   var defPath = [
     new Point(0 + pad, canvas.height / 2),
