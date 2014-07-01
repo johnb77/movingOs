@@ -10,9 +10,6 @@ function AppCtrl($scope) {
   $scope.stepSpeed = parseInt(localStorage.getItem('stepSpeed')) || 1000;
   $scope.startIndex = parseInt(localStorage.getItem('startIndex')) || 0;
 
-  //padding so the movingStr doesn't get displayed right on the edge of screen
-  var pad = 50;
-
   //canvas setup
   var canvas = document.getElementById('grid');
   canvas.width = window.innerWidth;
@@ -21,7 +18,7 @@ function AppCtrl($scope) {
   var centerX = canvas.width / 2;
   var centerY = canvas.height / 2;
   var tau = 2 * Math.PI;
-  var clockRadius = Math.min(canvas.width, canvas.height) / 2.0;
+  var clockRadius = Math.min(canvas.width, canvas.height) / 2.3;
 
   function getClockPoint(hour) {
     var radians = tau * (hour / 12);
@@ -56,14 +53,15 @@ function AppCtrl($scope) {
     var point = defPath[index % defPath.length];
     ctx.fillText($scope.movingStr, point.x, point.y);
     if (growFlag && point.equals(defPath[defPath.length - 1])) {
-      //grow:  O --> 00
+      //grow:  O --> OO
       $scope.movingStr += $scope.movingStr[$scope.movingStr.length - 1];
     }
     growFlag = true;
     localStorage.setItem("startIndex", index);
     localStorage.setItem("stepSpeed", $scope.stepSpeed);
     localStorage.setItem("movingStr", $scope.movingStr);
-    setTimeout(move, parseInt($scope.stepSpeed), index + 1); 
+    var time = parseInt($scope.stepSpeed);
+    setTimeout(move, time, index + 1); 
   }
 
   //constructor for Point object
