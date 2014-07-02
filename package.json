@@ -1,6 +1,6 @@
 {
   "name": "movingOs",
-  "description": “moving O coding challenge",
+  "description": “movingOs coding challenge",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
